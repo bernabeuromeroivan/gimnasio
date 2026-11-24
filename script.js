@@ -50,7 +50,7 @@ function rellenarSelectores() {
 
 function mostrarFranjas() {
   let contenedor = document.querySelector("#franjas");
-  contenedor.innerHTML = "";
+  let html = "";
 
   for (let i = 0; i < franjas.length; i++) {
     let hora = franjas[i];
@@ -61,7 +61,7 @@ function mostrarFranjas() {
       if (r.franja === hora) {
         let act = buscarActividad(r.actividadId);
         let palabra = "personas";
-        if (r.personas === 1) {
+        if (r.personas == 1) {
           palabra = "persona";
         }
         textoReservas += "<p>" + act.nombre + " — " + r.personas + " " + palabra + "</p>";
@@ -72,16 +72,13 @@ function mostrarFranjas() {
       textoReservas = "<p>Sin reservas</p>";
     }
 
-    let tarjeta = document.createElement("div");
-    tarjeta.className = "tarjeta";
-    tarjeta.innerHTML = "<h3>" + hora + "</h3>" + textoReservas;
-    
-    tarjeta.onclick = function () {
-      abrirModal(hora);
-    };
-
-    contenedor.appendChild(tarjeta);
+    html += "<div class='tarjeta' onclick='abrirModal(\"" + hora + "\")'>";
+    html += "  <h3>" + hora + "</h3>";
+    html +=    textoReservas;
+    html += "</div>";
   }
+
+  contenedor.innerHTML = html;
 }
 
 function abrirModal(hora) {
